@@ -6,7 +6,7 @@ using namespace std;
 
 class GeneticFunctionsTest {
     public:
-        bool containsSub(string initSet, string GeneSet);
+       string* r_array(string initSet1,string initSet2,string initSet3);
 };
 
 
