@@ -58,8 +58,34 @@ bool GeneticFunctions::containsSub(string initSet, string GeneSet) {
 
 string * GeneticFunctions::pickFittestParents(string initSets[]) {
     static string chosenSets[2];
-    chosenSets[0] = initSets[1];
-    chosenSets[1] = initSets[2];
-    cout<<"Not At GeneticFunctions.cpp:63"<<endl;
+    int init_len = 0;
+    
+    do
+    {
+       init_len++;
+    } while (initSets[init_len] != "");
+
+    string fit1 = "";
+    string fit2 = "";
+    for(int i = 0; i<init_len; i++){
+        if(fit1 == "") {
+            fit1 = initSets[i];
+        }
+        else if(getFitScore(initSets[i]) > getFitScore(fit1)) {
+            fit2 = fit1;
+            fit1 = initSets[i];
+        }
+        else if(getFitScore(initSets[i])>getFitScore(fit2)) {
+            fit2 = initSets[i];
+        }
+        
+    }
+
+    chosenSets[0] = fit1;
+    chosenSets[1] = fit2;
     return chosenSets;
+}
+
+string GeneticFunctions::mate(string initSets[]) {
+    return initSets[0].substr(0,3)+initSets[1].substr(3,initSets[1].size()-1);
 }

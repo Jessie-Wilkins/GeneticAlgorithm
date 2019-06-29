@@ -13,6 +13,7 @@ class GeneticFunctions {
         int getFitScore(string init_set);
         bool containsSub(string initSet, string GeneSet);
         string* pickFittestParents(string initSets[]);
+        string mate(string initSets[]);
         
     private:
         string goal;

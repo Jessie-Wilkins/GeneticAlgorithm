@@ -39,7 +39,6 @@ TEST_CASE("GeneticFunctionsTest") {
     
     SECTION("Test If Fittest Parents Mate") {
         
-        cout<<"Not At GeneticFunctionsTest.cpp:48"<<endl;
         gf.setFitGoal("bald");
         string* initSets;
         initSets = gt.r_array("bdft", "labf", "bady");
