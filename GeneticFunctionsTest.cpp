@@ -58,6 +58,20 @@ TEST_CASE("GeneticFunctionsTest") {
         string offspring = gf.mate(chosenSets);
         REQUIRE(offspring == "laby");
     }
+
+    SECTION("Test If Mutation Will Change One Chromosome"){
+        
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft");
+        string *chosenSets;
+        chosenSets = gf.pickFittestParents(initSets);
+        string offspring = gf.mate(chosenSets);
+        int index = 0;
+        offspring = gf.mutate(offspring, index);
+
+        REQUIRE(offspring.compare("laby") == 1);
+    }
     
 }
 

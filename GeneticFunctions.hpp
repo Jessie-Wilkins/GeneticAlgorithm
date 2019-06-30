@@ -3,6 +3,7 @@
 #define GeneticFunctions_h
 #include <string>
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 class GeneticFunctions {
@@ -14,6 +15,7 @@ class GeneticFunctions {
         bool containsSub(string initSet, string GeneSet);
         string* pickFittestParents(string initSets[]);
         string mate(string initSets[]);
+        string mutate(string offspring, int index);
         
     private:
         string goal;

@@ -1,6 +1,7 @@
 #include "GeneticFunctions.hpp"
 
 string GeneticFunctions::getInitialSet(string gene_set) {
+    //srand(std::time(nullptr));
     int len = rand() % gene_set.size();
     string init_set = "";
     for(int i = 0; i<len; i++) {
@@ -88,4 +89,10 @@ string * GeneticFunctions::pickFittestParents(string initSets[]) {
 
 string GeneticFunctions::mate(string initSets[]) {
     return initSets[0].substr(0,3)+initSets[1].substr(3,initSets[1].size()-1);
+}
+
+string GeneticFunctions::mutate(string offspring, int index) {
+    int change_amount = 1;
+    offspring.at(index) = offspring.at(index)+change_amount;
+    return offspring;
 }
