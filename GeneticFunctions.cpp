@@ -1,8 +1,8 @@
 #include "GeneticFunctions.hpp"
 
-string GeneticFunctions::getInitialSet(string gene_set) {
+string GeneticFunctions::getInitialSet(string gene_set, int len) {
     //srand(std::time(nullptr));
-    int len = rand() % gene_set.size();
+    //int len = rand() % gene_set.size();
     string init_set = "";
     for(int i = 0; i<len; i++) {
         int index = rand() % len;
@@ -57,33 +57,32 @@ bool GeneticFunctions::containsSub(string initSet, string GeneSet) {
     return part_of_subset;
 }
 
-string * GeneticFunctions::pickFittestParents(string initSets[]) {
+string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
     static string chosenSets[2];
-    int init_len = 0;
-    
-    do
-    {
-       init_len++;
-    } while (initSets[init_len] != "");
 
     string fit1 = "";
     string fit2 = "";
-    for(int i = 0; i<init_len; i++){
+    for(int i = 0; i<len; i++){
+        cout<<i<<endl;
         if(fit1 == "") {
             fit1 = initSets[i];
+
         }
         else if(getFitScore(initSets[i]) > getFitScore(fit1)) {
             fit2 = fit1;
             fit1 = initSets[i];
+
         }
         else if(getFitScore(initSets[i])>getFitScore(fit2)) {
             fit2 = initSets[i];
+
         }
         
     }
 
     chosenSets[0] = fit1;
     chosenSets[1] = fit2;
+
     return chosenSets;
 }
 
@@ -97,23 +96,18 @@ string GeneticFunctions::mutate(string offspring, int index) {
     return offspring;
 }
 
-string* GeneticFunctions::newGeneration(string initSets[], string offspring){ 
-    int unfit_index = pickUnfitIndex(initSets);
+string* GeneticFunctions::newGeneration(string initSets[], string offspring, int len){ 
+    int unfit_index = pickUnfitIndex(initSets, len);
 
     initSets[unfit_index] = offspring;
 
     return initSets;
 }
 
-int GeneticFunctions::pickUnfitIndex(string initSets[]) {
-    int init_len = 0;
-     do
-    {
-       init_len++;
-    } while (initSets[init_len] != "");
+int GeneticFunctions::pickUnfitIndex(string initSets[], int len) {
 
     int unfit_index = 0;
-    for(int i = 0; i<init_len; i++){
+    for(int i = 0; i<len; i++){
         if(getFitScore(initSets[i]) < getFitScore(initSets[unfit_index])) {
             unfit_index = i;
         }

@@ -5,7 +5,10 @@ TEST_CASE("GeneticFunctionsTest") {
     GeneticFunctionsTest gt;
     SECTION("Test If Random Initial Parent Is Subset Of Entire Gene Set"){
         string GeneSet = "abcdefghijklmnopqrstuvwxyz";
-        string initSet = gf.getInitialSet(GeneSet);
+
+        int len = 4;
+
+        string initSet = gf.getInitialSet(GeneSet, len);
         
         bool part_of_subset = gf.containsSub(initSet, GeneSet);
         
@@ -14,8 +17,11 @@ TEST_CASE("GeneticFunctionsTest") {
 
     SECTION("Test If Multiple Subsets Are Different"){
         string GeneSet = "abcdefghijklmnopqrstuvwxyz";
-        string initSet1 = gf.getInitialSet(GeneSet);
-        string initSet2 = gf.getInitialSet(GeneSet);
+
+        int len = 4;
+
+        string initSet1 = gf.getInitialSet(GeneSet, len);
+        string initSet2 = gf.getInitialSet(GeneSet, len);
         
         REQUIRE(initSet1 != initSet2);
     }
@@ -43,7 +49,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string* initSets;
         initSets = gt.r_array("bdft", "labf", "bady");
         string *chosenSets;
-        chosenSets = gf.pickFittestParents(initSets);
+        chosenSets = gf.pickFittestParents(initSets, 3);
         REQUIRE(chosenSets[0] == "labf");
         REQUIRE(chosenSets[1] == "bady");
     }
@@ -54,7 +60,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string* initSets;
         initSets = gt.r_array("labf", "bady","bdft");
         string *chosenSets;
-        chosenSets = gf.pickFittestParents(initSets);
+        chosenSets = gf.pickFittestParents(initSets, 3);
         string offspring = gf.mate(chosenSets);
         REQUIRE(offspring == "laby");
     }
@@ -65,7 +71,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string* initSets;
         initSets = gt.r_array("labf", "bady","bdft");
         string *chosenSets;
-        chosenSets = gf.pickFittestParents(initSets);
+        chosenSets = gf.pickFittestParents(initSets, 3);
         string offspring = gf.mate(chosenSets);
         int index = 0;
         offspring = gf.mutate(offspring, index);
@@ -78,13 +84,13 @@ TEST_CASE("GeneticFunctionsTest") {
         string* initSets;
         initSets = gt.r_array("labf", "bady","bdft");
         string *chosenSets;
-        chosenSets = gf.pickFittestParents(initSets);
+        chosenSets = gf.pickFittestParents(initSets, 3);
         string offspring = gf.mate(chosenSets);
         int index = 0;
         offspring = gf.mutate(offspring, index);
 
         string* newSet;
-        newSet = gf.newGeneration(initSets, offspring);
+        newSet = gf.newGeneration(initSets, offspring, 3);
         REQUIRE(newSet[2] == "maby");
     }
     
