@@ -72,6 +72,21 @@ TEST_CASE("GeneticFunctionsTest") {
 
         REQUIRE(offspring.compare("laby") == 1);
     }
+
+    SECTION("Test If Offspring will be added and least fit Deleted") {
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft");
+        string *chosenSets;
+        chosenSets = gf.pickFittestParents(initSets);
+        string offspring = gf.mate(chosenSets);
+        int index = 0;
+        offspring = gf.mutate(offspring, index);
+
+        string* newSet;
+        newSet = gf.newGeneration(initSets, offspring);
+        REQUIRE(newSet[2] == "maby");
+    }
     
 }
 

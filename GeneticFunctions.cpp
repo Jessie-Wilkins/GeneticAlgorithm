@@ -96,3 +96,27 @@ string GeneticFunctions::mutate(string offspring, int index) {
     offspring.at(index) = offspring.at(index)+change_amount;
     return offspring;
 }
+
+string* GeneticFunctions::newGeneration(string initSets[], string offspring){ 
+    int unfit_index = pickUnfitIndex(initSets);
+
+    initSets[unfit_index] = offspring;
+
+    return initSets;
+}
+
+int GeneticFunctions::pickUnfitIndex(string initSets[]) {
+    int init_len = 0;
+     do
+    {
+       init_len++;
+    } while (initSets[init_len] != "");
+
+    int unfit_index = 0;
+    for(int i = 0; i<init_len; i++){
+        if(getFitScore(initSets[i]) < getFitScore(initSets[unfit_index])) {
+            unfit_index = i;
+        }
+    }
+    return unfit_index;
+}

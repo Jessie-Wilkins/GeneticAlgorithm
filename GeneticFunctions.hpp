@@ -16,6 +16,8 @@ class GeneticFunctions {
         string* pickFittestParents(string initSets[]);
         string mate(string initSets[]);
         string mutate(string offspring, int index);
+        string* newGeneration(string initSets[], string offspring);
+        int pickUnfitIndex(string initSets[]);
         
     private:
         string goal;

@@ -14,5 +14,13 @@
 using namespace std;
 int main(int argc, const char * argv[]) {
     int result = Catch::Session().run( argc, argv );
+
+
+    cout<<"-------------------------------------------------------------"<<endl;
+    cout<<"-------------------------------------------------------------"<<endl;
+
+
+    
+
     return result;
 }
