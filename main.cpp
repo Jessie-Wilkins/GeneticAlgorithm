@@ -12,6 +12,10 @@
 #include "GeneticFunctions.hpp"
 #include "catch.hpp"
 using namespace std;
+
+
+string* getArrayOfSets(string GeneSet, int str_len, int arr_len);
+
 int main(int argc, const char * argv[]) {
     int result = Catch::Session().run( argc, argv );
 
@@ -19,25 +23,28 @@ int main(int argc, const char * argv[]) {
     cout<<"-------------------------------------------------------------"<<endl;
     cout<<"-------------------------------------------------------------"<<endl;
 
+    srand(time(NULL));
+
     GeneticFunctions gf;
     
 
     string GeneSet = "abcdefghijklmnopqrstuvwxyz";
 
-    int len = 4;
+    int str_len = 4;
 
-    string initSet1 = gf.getInitialSet(GeneSet, len);
-    string initSet2 = gf.getInitialSet(GeneSet, len);
-    string initSet3 = gf.getInitialSet(GeneSet, len);
-    string initSet4 = gf.getInitialSet(GeneSet, len);
+    int arr_len = 8;
 
-    string initSets [4];
-    initSets[0] = initSet1;
-    initSets[1] = initSet2;
-    initSets[2] = initSet3;
-    initSets[3] = initSet4;
+    string* initSets;
 
-    cout<<"Initial Sets:"<<endl<<initSets[0]<<endl<<initSets[1]<<endl<<initSets[2]<<endl<<initSets[3]<<endl<<endl;
+    initSets = getArrayOfSets(GeneSet, str_len, arr_len);
+
+    cout<<"Initial Sets:"<<endl;
+
+    for(int i = 0; i<arr_len; i++) {
+        cout<<initSets[i]<<endl;
+    }
+
+    cout<<endl;
 
     string goal = "bald";
 
@@ -45,27 +52,55 @@ int main(int argc, const char * argv[]) {
 
     cout<<"Goal: "<<gf.getFitGoal()<<endl<<endl;
 
-    string* chosenSets;
+    for(int i = 0; i<50; i++) {
 
-    chosenSets = gf.pickFittestParents(initSets, len);
+        cout<<"Generation "<<i<<endl;
 
-    cout<<"Chosen Mates: "<<chosenSets[0]<<"; "<<chosenSets[1]<<endl<<endl;
+        for(int i = 0; i<arr_len; i++) {
+            cout<<initSets[i]<<endl;
+        }
 
-    string offspring = gf.mate(chosenSets);
+        cout<<endl;
 
-    cout<<"Offspring: "<<offspring<<endl<<endl<<endl;
+        string* chosenSets;
 
-    string* newSets;
+        chosenSets = gf.pickFittestParents(initSets, arr_len);
 
-    newSets = gf.newGeneration(initSets, offspring, len);
+        cout<<"Chosen Mates: "<<chosenSets[0]<<"; "<<chosenSets[1]<<endl<<endl;
 
-    cout<<"New Generation:"<<endl<<newSets[0]<<endl<<newSets[1]<<endl<<newSets[2]<<endl<<newSets[3]<<endl<<endl;
+        string offspring = gf.mate(chosenSets);
+
+        cout<<"Offspring: "<<offspring<<endl<<endl<<endl;
+
+        string* newSets;
+
+        if(rand()%2 == 0) {
+            int index = rand() % offspring.length();
+            offspring = gf.mutate(offspring, index);
+        }
+
+        newSets = gf.newGeneration(initSets, offspring, arr_len);
+
+        *initSets = *newSets;
+
+        
+    }
 
 
-
-    int index = rand() % offspring.length();
-    offspring = gf.mutate(offspring, index);
 
 
     return result;
+}
+
+string* getArrayOfSets(string GeneSet, int str_len, int arr_len) {
+
+    GeneticFunctions gf;
+
+    string* initSets = new string [arr_len];
+    for(int i  = 0; i<arr_len; i++) {
+        initSets[i] = gf.getInitialSet(GeneSet, str_len);
+    
+    }
+
+    return initSets;
 }

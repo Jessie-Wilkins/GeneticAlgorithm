@@ -1,8 +1,6 @@
 #include "GeneticFunctions.hpp"
 
 string GeneticFunctions::getInitialSet(string gene_set, int len) {
-    //srand(std::time(nullptr));
-    //int len = rand() % gene_set.size();
     string init_set = "";
     for(int i = 0; i<len; i++) {
         int index = rand() % len;
@@ -25,10 +23,11 @@ int GeneticFunctions::getFitScore(string init_set) {
         {
             for (int j = 0; j < getFitGoal().size(); j++)
             {
+                
                 if (getFitGoal().at(j) == init_set.at(i))
                 {
                     score +=1;
-                    break;
+                    
                 }
             }
            
@@ -63,7 +62,7 @@ string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
     string fit1 = "";
     string fit2 = "";
     for(int i = 0; i<len; i++){
-        cout<<i<<endl;
+
         if(fit1 == "") {
             fit1 = initSets[i];
 
