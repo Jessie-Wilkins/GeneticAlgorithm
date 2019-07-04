@@ -85,10 +85,10 @@ string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
 
 string GeneticFunctions::mate(string initSets[], int rand_num) {
     if(rand_num <50) {
-        return initSets[0].substr(0,3)+initSets[1].substr(3,initSets[1].size()-1);
+        return initSets[0].substr(0,(initSets[0].size()-1)/2)+initSets[1].substr((initSets[1].size()-1)/2,initSets[1].size()-1);
     }
     else{
-        return initSets[1].substr(0,3)+initSets[1].substr(3,initSets[0].size()-1);
+        return initSets[1].substr(0,(initSets[1].size()-1)/2)+initSets[0].substr((initSets[0].size()-1)/2,initSets[0].size()-1);
     }
 }
 

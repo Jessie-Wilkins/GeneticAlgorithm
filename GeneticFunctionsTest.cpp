@@ -62,7 +62,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string *chosenSets;
         chosenSets = gf.pickFittestParents(initSets, 3);
         string offspring = gf.mate(chosenSets, 49);
-        REQUIRE(offspring == "badf");
+        REQUIRE(offspring == "babf");
     }
 
     SECTION("Test If Mutation Will Change One Chromosome"){
