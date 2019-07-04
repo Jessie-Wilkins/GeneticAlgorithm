@@ -27,16 +27,45 @@ int main(int argc, const char * argv[]) {
 
     GeneticFunctions gf;
     
+    cout<<"Choose Gene Set:"<<endl;
+
+    
+    cout<<1<<": abcdefghijklmnopqrstuvwxyz"<<endl;
+    cout<<2<<": 0123456789"<<endl;
+    cout<<3<<": abcdefghijklmnopqrstuvwxyz(space_char)"<<endl;
+    cout<<4<<": abcdefghijklmnopqrstuvwxyz(space_char);:!().,/][}{"<<endl;
+    cout<<5<<": abcdefghijklmnopqrstuvwxyz(space_char);:!().,/][}{0123456789"<<endl;
+    
+    int gene_set_choice = 0;
+
+    cin>>gene_set_choice;
 
     string GeneSet = "abcdefghijklmnopqrstuvwxyz";
 
-    cout<<"Please enter the length of the strings: ";
+    if(gene_set_choice==1) {
+        GeneSet = "abcdefghijklmnopqrstuvwxyz";
+    }
+    else if(gene_set_choice==2) {
+        GeneSet = "0123456789";
+    }
+    else if(gene_set_choice==3) {
+        GeneSet = "abcdefghijklmnopqrstuvwxyz ";
+    }
+    else if(gene_set_choice==4) {
+        GeneSet = "abcdefghijklmnopqrstuvwxyz ;:!().,/][}{";
+    }
+    else if(gene_set_choice==5) {
+        GeneSet = "abcdefghijklmnopqrstuvwxyz ;:!().,/][}{0123456789";
+    }
+    
+
+    cout<<"Please Enter the Length of the Strings: ";
 
     int str_len = 4;
 
     cin>>str_len;
 
-    cout<<"Please enter the number of the strings: ";
+    cout<<"Please Enter the Number of the Strings: ";
 
     int arr_len = 8;
 
@@ -59,6 +88,12 @@ int main(int argc, const char * argv[]) {
     string goal = "bald";
 
     cin>>goal;
+
+    int chance_to_mutate = 0;
+
+    cout<<"Please Enter the Probability of Mutation: ";
+
+    cin>>chance_to_mutate;
 
     gf.setFitGoal(goal);
 
@@ -86,7 +121,7 @@ int main(int argc, const char * argv[]) {
 
         string* newSets;
 
-        if(rand()%1 == 0) {
+        if((rand()%100)/chance_to_mutate == 0) {
             cout<<"Mutation!!!"<<endl<<endl;
             int index1 = rand() % offspring.length();
             int index2 = rand() % GeneSet.length();
@@ -101,14 +136,10 @@ int main(int argc, const char * argv[]) {
         *initSets = *newSets;
 
         if(offspring == goal) {
-            cout<<"offspring: "<<offspring<<" goal: "<<goal<<endl<<endl;
             break;
         }
         
     }
-
-
-
 
     return result;
 }
