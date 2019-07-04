@@ -20,18 +20,16 @@ string GeneticFunctions::getFitGoal(){
 int GeneticFunctions::getFitScore(string init_set) {
     int score =0;
     for (int i = 0; i < init_set.size(); i++)
-        {
-            for (int j = 0; j < getFitGoal().size(); j++)
-            {
+    {
                 
-                if (getFitGoal().at(j) == init_set.at(i))
-                {
-                    score +=1;
+        if (getFitGoal().at(i) == init_set.at(i))
+        {
+            score +=1;
                     
-                }
-            }
-           
         }
+    }
+           
+        
     
     return score;
 }
@@ -85,13 +83,17 @@ string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
     return chosenSets;
 }
 
-string GeneticFunctions::mate(string initSets[]) {
-    return initSets[0].substr(0,3)+initSets[1].substr(3,initSets[1].size()-1);
+string GeneticFunctions::mate(string initSets[], int rand_num) {
+    if(rand_num <50) {
+        return initSets[0].substr(0,3)+initSets[1].substr(3,initSets[1].size()-1);
+    }
+    else{
+        return initSets[1].substr(0,3)+initSets[1].substr(3,initSets[0].size()-1);
+    }
 }
 
-string GeneticFunctions::mutate(string offspring, int index) {
-    int change_amount = 1;
-    offspring.at(index) = offspring.at(index)+change_amount;
+string GeneticFunctions::mutate(string offspring, int index, char rand_char) {
+    offspring.at(index) = rand_char;
     return offspring;
 }
 

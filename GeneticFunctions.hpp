@@ -14,8 +14,8 @@ class GeneticFunctions {
         int getFitScore(string init_set);
         bool containsSub(string initSet, string GeneSet);
         string* pickFittestParents(string initSets[], int len);
-        string mate(string initSets[]);
-        string mutate(string offspring, int index);
+        string mate(string initSets[], int rand_num);
+        string mutate(string offspring, int index, char rand_char);
         string* newGeneration(string initSets[], string offspring, int len);
         int pickUnfitIndex(string initSets[], int len);
         
