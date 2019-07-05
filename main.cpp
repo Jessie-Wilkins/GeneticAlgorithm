@@ -115,7 +115,7 @@ int main(int argc, const char * argv[]) {
 
         cout<<"Chosen Mates: "<<chosenSets[0]<<"; "<<chosenSets[1]<<endl<<endl;
 
-        int rand_num = rand()%100;
+        int rand_num = 100;
 
         string offspring = gf.mate(chosenSets, rand_num);
 

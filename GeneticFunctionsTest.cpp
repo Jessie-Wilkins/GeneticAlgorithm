@@ -62,7 +62,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string *chosenSets;
         chosenSets = gf.pickFittestParents(initSets, 3);
         string offspring = gf.mate(chosenSets, 49);
-        REQUIRE(offspring == "babf");
+        REQUIRE(offspring == "bady");
     }
 
     SECTION("Test If Mutation Will Change One Chromosome"){
@@ -75,7 +75,7 @@ TEST_CASE("GeneticFunctionsTest") {
         string offspring = gf.mate(chosenSets, 49);
         int index = 0;
         offspring = gf.mutate(offspring, index, 'c');
-        REQUIRE(offspring.compare("badf") == 1);
+        REQUIRE(offspring.compare("bady") == 1);
     }
 
     SECTION("Test If Offspring will be added and least fit Deleted") {
@@ -93,6 +93,13 @@ TEST_CASE("GeneticFunctionsTest") {
         REQUIRE(newSet[2] == "bdft");
     }
     
+    SECTION("Test If initSets Can Be Ordered by Fittest") {
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft");
+        initSets = gf.orderArray(initSets, 3);
+        REQUIRE(initSets[0] == "bady");
+    }
 }
 
 string* GeneticFunctionsTest::r_array(string initSet1,string initSet2,string initSet3) {

@@ -84,12 +84,20 @@ string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
 }
 
 string GeneticFunctions::mate(string initSets[], int rand_num) {
-    if(rand_num <50) {
-        return initSets[0].substr(0,(initSets[0].size()-1)/2)+initSets[1].substr((initSets[1].size()-1)/2,initSets[1].size()-1);
+    string offspring = "";
+    for(int i = 0; i<initSets[0].size(); i++) {
+        int rand_gen = rand()%rand_num;
+        if(rand_gen <50) {
+            offspring += initSets[0].at(i);
+            //return initSets[0].substr(0,(initSets[0].size()-1)/2)+initSets[1].substr((initSets[1].size()-1)/2,initSets[1].size()-1);
+        }
+        else{
+            offspring += initSets[1].at(i);
+            //return initSets[1].substr(0,(initSets[1].size()-1)/2)+initSets[0].substr((initSets[0].size()-1)/2,initSets[0].size()-1);
+        }
     }
-    else{
-        return initSets[1].substr(0,(initSets[1].size()-1)/2)+initSets[0].substr((initSets[0].size()-1)/2,initSets[0].size()-1);
-    }
+    return offspring;
+    
 }
 
 string GeneticFunctions::mutate(string offspring, int index, char rand_char) {
@@ -114,4 +122,17 @@ int GeneticFunctions::pickUnfitIndex(string initSets[], int len) {
         }
     }
     return unfit_index;
+}
+
+string* GeneticFunctions::orderArray(string initSets[], int len) {
+    for(int i = 0; i<len; i++) {
+        for(int j = i; j<len; j++) {
+            if(getFitScore(initSets[i])<getFitScore(initSets[j])) {
+                string temp = initSets[i];
+                initSets[i]=initSets[j];
+                initSets[j]=temp;
+            }
+        }
+    }
+    return initSets;
 }

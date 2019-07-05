@@ -18,6 +18,7 @@ class GeneticFunctions {
         string mutate(string offspring, int index, char rand_char);
         string* newGeneration(string initSets[], string offspring, int len);
         int pickUnfitIndex(string initSets[], int len);
+        string* orderArray(string initSets[], int len);
         
     private:
         string goal;
