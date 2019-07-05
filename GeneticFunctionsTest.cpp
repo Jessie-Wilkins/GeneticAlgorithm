@@ -100,6 +100,18 @@ TEST_CASE("GeneticFunctionsTest") {
         initSets = gf.orderArray(initSets, 3);
         REQUIRE(initSets[0] == "bady");
     }
+
+    SECTION("Test If Top 50% Can Be Chosen From initSets") {
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft","balt");
+        initSets = gf.orderArray(initSets, 4);
+        string* eliteSet;
+        eliteSet = gf.chooseElite(initSets, 4);
+        REQUIRE(eliteSet[0] == "balt");
+        REQUIRE(eliteSet[1] == "bady");
+        REQUIRE(eliteSet[2] != "bdft");
+    }
 }
 
 string* GeneticFunctionsTest::r_array(string initSet1,string initSet2,string initSet3) {
@@ -107,5 +119,14 @@ string* GeneticFunctionsTest::r_array(string initSet1,string initSet2,string ini
         initSets[0] = initSet1;
         initSets[1] = initSet2;
         initSets[2] = initSet3;
+        return initSets;
+}
+
+string* GeneticFunctionsTest::r_array(string initSet1,string initSet2,string initSet3, string initSet4) {
+        static string initSets [4];
+        initSets[0] = initSet1;
+        initSets[1] = initSet2;
+        initSets[2] = initSet3;
+        initSets[3] = initSet4;
         return initSets;
 }

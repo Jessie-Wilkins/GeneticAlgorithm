@@ -136,3 +136,11 @@ string* GeneticFunctions::orderArray(string initSets[], int len) {
     }
     return initSets;
 }
+
+string* GeneticFunctions::chooseElite(string initSets[], int len) {
+    string* eliteSets = new string[len/2];
+    for(int i =0; i<len/2; i++) {
+        eliteSets[i] = initSets[i];
+    }
+    return eliteSets;
+}
