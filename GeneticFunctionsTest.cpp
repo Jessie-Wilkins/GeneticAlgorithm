@@ -125,6 +125,20 @@ TEST_CASE("GeneticFunctionsTest") {
         REQUIRE(offSpringSet[0] == "balt");
         REQUIRE(offSpringSet[1] == "balt");
     }
+
+    SECTION("Test If Offspring Will Replace The Unfit In New Generation") {
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft","balt");
+        initSets = gf.orderArray(initSets, 4);
+        string* eliteSet;
+        eliteSet = gf.chooseElite(initSets, 4);
+        string* offSpringSet;
+        offSpringSet = gf.mateElite(eliteSet, 2, 0,49);
+        string* newSet = gf.newGeneration(initSets, offSpringSet, 4);
+        REQUIRE(newSet[2] != "bdft");
+        REQUIRE(newSet[3] != "labf");
+    }
 }
 
 string* GeneticFunctionsTest::r_array(string initSet1,string initSet2,string initSet3) {

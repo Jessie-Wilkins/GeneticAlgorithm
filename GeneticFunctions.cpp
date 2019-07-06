@@ -114,6 +114,13 @@ string* GeneticFunctions::newGeneration(string initSets[], string offspring, int
     return initSets;
 }
 
+string* GeneticFunctions::newGeneration(string initSets[], string offSpringSet[], int len){
+    for(int i = len/2; i<len; i++) {
+        initSets[i] = offSpringSet[i/2];
+    }
+    return initSets;
+}
+
 int GeneticFunctions::pickUnfitIndex(string initSets[], int len) {
 
     int unfit_index = 0;
