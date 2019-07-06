@@ -84,6 +84,7 @@ string * GeneticFunctions::pickFittestParents(string initSets[], int len) {
 }
 
 string GeneticFunctions::mate(string initSets[], int rand_num) {
+    srand(time(NULL));
     string offspring = "";
     for(int i = 0; i<initSets[0].size(); i++) {
         int rand_gen = rand()%rand_num;
@@ -143,4 +144,30 @@ string* GeneticFunctions::chooseElite(string initSets[], int len) {
         eliteSets[i] = initSets[i];
     }
     return eliteSets;
+}
+
+string* GeneticFunctions::mateElite(string eliteSets[], int len, bool randomness,int rand_num) {
+    srand(time(NULL));
+    string* off_spring = new string[len];
+    string* mates = new string[2];
+    for(int i = 0; i<len; i++) {
+        int rand_gen1;
+        if(randomness) {
+            rand_gen1 = rand()%len;
+        }
+        else {
+            rand_gen1 = 0;
+        }
+        mates[0] = eliteSets[rand_gen1];
+        int rand_gen2 = rand()%len;
+        while(rand_gen1 == rand_gen2) {
+            rand_gen2 = rand()%len;
+        }
+        mates[1] = eliteSets[rand_gen2];
+
+        off_spring[i] = mate(mates, rand_num);
+
+    }
+    
+    return off_spring;
 }

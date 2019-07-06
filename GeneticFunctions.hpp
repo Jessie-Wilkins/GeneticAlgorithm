@@ -20,6 +20,7 @@ class GeneticFunctions {
         int pickUnfitIndex(string initSets[], int len);
         string* orderArray(string initSets[], int len);
         string* chooseElite(string initSets[], int len);
+        string* mateElite(string eliteSets[], int len, bool randomness, int rand_num);
         
     private:
         string goal;
