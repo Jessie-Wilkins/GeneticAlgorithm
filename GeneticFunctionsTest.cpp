@@ -78,6 +78,24 @@ TEST_CASE("GeneticFunctionsTest") {
         REQUIRE(offspring.compare("bady") == 1);
     }
 
+    SECTION("Test If Mutation Can Change More than One Gene") {
+        gf.setFitGoal("bald");
+        string* initSets;
+        initSets = gt.r_array("labf", "bady","bdft");
+        string *chosenSets;
+        chosenSets = gf.pickFittestParents(initSets, 3);
+        string offspring = gf.mate(chosenSets, 49);
+        int index = 0;
+        offspring = gf.mutateMultiple(offspring, 2,  false, "abcdefghijklmnopqrstuvwxyz");
+        int count = 0;
+        for(int i =0; i<offspring.size(); i++) {
+            if(offspring.at(i)!="bady"[i]) {
+                count++;
+            }
+        }
+        REQUIRE(count==2);
+    }
+
     SECTION("Test If Offspring will be added and least fit Deleted") {
         gf.setFitGoal("bald");
         string* initSets;

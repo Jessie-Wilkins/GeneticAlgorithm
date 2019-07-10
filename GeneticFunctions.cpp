@@ -106,6 +106,25 @@ string GeneticFunctions::mutate(string offspring, int index, char rand_char) {
     return offspring;
 }
 
+string GeneticFunctions::mutateMultiple(string offspring, int count, bool is_random, string gene_set) {
+    srand(time(NULL));
+    int prev_index = 0;
+    for(int i = 0; i<count; i++) {
+        int rand_index = rand()%offspring.size();
+        while(i>0 && prev_index == rand_index) {
+            rand_index = rand()%offspring.size();
+        }
+        char letter = gene_set.at(rand()%gene_set.size());
+        while(letter == offspring.at(i)) {
+            letter = gene_set.at(rand()%gene_set.size());
+        }
+        offspring.at(rand_index) = letter; 
+        prev_index = rand_index;
+    }
+    
+    return offspring;
+}
+
 string* GeneticFunctions::newGeneration(string initSets[], string offspring, int len){ 
     int unfit_index = pickUnfitIndex(initSets, len);
 

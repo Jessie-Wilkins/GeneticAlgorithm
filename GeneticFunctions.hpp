@@ -16,6 +16,7 @@ class GeneticFunctions {
         string* pickFittestParents(string initSets[], int len);
         string mate(string initSets[], int rand_num);
         string mutate(string offspring, int index, char rand_char);
+        string mutateMultiple(string offspring, int count, bool is_random, string gene_set);
         string* newGeneration(string initSets[], string offspring, int len);
         int pickUnfitIndex(string initSets[], int len);
         string* orderArray(string initSets[], int len);
