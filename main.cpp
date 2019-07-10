@@ -111,31 +111,44 @@ int main(int argc, const char * argv[]) {
 
         string* chosenSets;
 
-        chosenSets = gf.pickFittestParents(initSets, arr_len);
+        initSets = gf.orderArray(initSets, arr_len);
 
-        cout<<"Chosen Mates: "<<chosenSets[0]<<"; "<<chosenSets[1]<<endl<<endl;
+        //chosenSets = gf.pickFittestParents(initSets, arr_len);
+        chosenSets = gf.chooseElite(initSets, arr_len);
+
+        //cout<<"Chosen Mates: "<<chosenSets[0]<<"; "<<chosenSets[1]<<endl<<endl;
 
         int rand_num = 100;
 
-        string offspring = gf.mate(chosenSets, rand_num);
+        //string offspring = gf.mate(chosenSets, rand_num);
+
+        string* offSpringSet;
+        offSpringSet = gf.mateElite(chosenSets, arr_len/2, true,rand_num);
 
         string* newSets;
-
-        if((rand()%100)/chance_to_mutate == 0) {
-            cout<<"Mutation!!!"<<endl<<endl;
-            int index1 = rand() % offspring.length();
-            int index2 = rand() % GeneSet.length();
-            offspring = gf.mutate(offspring, index1, GeneSet[index2]);
+        for(int i = 0; i<arr_len/2; i++) {
+            if((rand()%100)/chance_to_mutate == 0) {
+                cout<<"Mutation!!!"<<endl<<endl;
+                int index1 = rand() % offSpringSet[i].length();
+                int index2 = rand() % GeneSet.length();
+                offSpringSet[i] = gf.mutate(offSpringSet[i], index1, GeneSet[index2]);
+            }
         }
+        
 
-        cout<<"Offspring: "<<offspring<<endl<<endl<<endl;
+        //cout<<"Offspring: "<<offspring<<endl<<endl<<endl;
 
 
-        newSets = gf.newGeneration(initSets, offspring, arr_len);
+        newSets = gf.newGeneration(initSets, offSpringSet, arr_len);
 
         *initSets = *newSets;
-
-        if(offspring == goal) {
+        bool do_break = false;
+        for(int i = 0; i<arr_len; i++) {
+            if(offSpringSet[i] == goal) {
+                do_break = true;
+            }
+        }
+        if(do_break) {
             break;
         }
         
