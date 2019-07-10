@@ -75,11 +75,11 @@ int main(int argc, const char * argv[]) {
 
     initSets = getArrayOfSets(GeneSet, str_len, arr_len);
 
-    cout<<"Initial Sets:"<<endl;
+    //cout<<"Initial Sets:"<<endl;
 
-    for(int i = 0; i<arr_len; i++) {
+    /*for(int i = 0; i<arr_len; i++) {
         cout<<initSets[i]<<endl;
-    }
+    }*/
 
     cout<<endl;
 
@@ -103,15 +103,17 @@ int main(int argc, const char * argv[]) {
 
         cout<<"Generation "<<i<<endl;
 
-        for(int i = 0; i<arr_len; i++) {
+        /*for(int i = 0; i<arr_len; i++) {
             cout<<initSets[i]<<endl;
-        }
+        }*/
 
         cout<<endl;
 
         string* chosenSets;
 
         initSets = gf.orderArray(initSets, arr_len);
+
+
 
         //chosenSets = gf.pickFittestParents(initSets, arr_len);
         chosenSets = gf.chooseElite(initSets, arr_len);
@@ -128,7 +130,7 @@ int main(int argc, const char * argv[]) {
         string* newSets;
         for(int i = 0; i<arr_len/2; i++) {
             if((rand()%100)/chance_to_mutate == 0) {
-                cout<<"Mutation!!!"<<endl<<endl;
+                //cout<<"Mutation!!!"<<endl<<endl;
                 int index1 = rand() % offSpringSet[i].length();
                 int index2 = rand() % GeneSet.length();
                 offSpringSet[i] = gf.mutate(offSpringSet[i], index1, GeneSet[index2]);
@@ -142,12 +144,14 @@ int main(int argc, const char * argv[]) {
         newSets = gf.newGeneration(initSets, offSpringSet, arr_len);
 
         *initSets = *newSets;
+
         bool do_break = false;
-        for(int i = 0; i<arr_len; i++) {
+        for(int i = 0; i<arr_len/2; i++) {
             if(offSpringSet[i] == goal) {
                 do_break = true;
             }
         }
+
         if(do_break) {
             break;
         }
